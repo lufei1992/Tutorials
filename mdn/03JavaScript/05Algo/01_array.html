@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>array</title>
+</head>
+<body>
+
+<script>
+    // 数组的创建
+    
+    // 1 字面量方式
+    var num1 = [1,5,6,10];
+    console.log(num1.length);
+    // 2 构造函数
+    var num2 = new Array(1,5,6,10,20);
+    console.log(num2.length);
+    
+    console.log(Array.isArray(num1));
+    
+    // 读写数组
+    var num = [1,5,6,10];
+    for(var i = 0; i < num.length; i++){
+        console.log(num[i]);
+    }
+    
+    // 浅复制
+    var num = [1,5,6,10];
+    var newNum = num;
+    num[0] = 10;
+    console.log(newNum[0]);
+    
+    // 深复制
+    function copy(arr1,arr2){
+        for(var i = 0; i < arr1.length; i++){
+            arr2[i] = arr1[i];
+        }
+    }
+    var num = [1,5,6,7,9];
+    var newNum = [];
+    copy(num,newNum);
+    num[0] = 10;
+    console.log(newNum[0]);
+    
+    // 存取函数 indexOf()
+    var word = ["A","B","C","D"];
+    var result = word.indexOf("A");
+    console.log(result);
+    var test = word.indexOf("F");
+    console.log(test);
+    
+    // 数组转化为字符串 join(),toString()
+    var arr = ["Mike","John","Hexo"];
+    console.log(arr.join());
+    console.log(arr.toString());
+    
+    // 合并数组 concat()
+    var arr1 = [1,10,"Mike"];
+    var arr2 = [8,6,7];
+    var cat = arr1.concat(arr2);
+    console.log(cat);
+    
+    // 截取数组 splice()
+    var num = [1,2,3,4,5,6,7];
+    var a = num.splice(3,2); // 3 表示索引， 2 表示删除 2个
+    console.log(a);
+    console.log(num);
+    
+    // 可变函数 push()、 unshift()、 pop()、 shift()
+    var nums = [9,58,15,16,23];
+    nums.push(11);
+    console.log(nums);
+    nums.unshift(1);
+    console.log(nums);
+    nums.pop();
+    console.log(nums);
+    nums.shift();
+    console.log(nums);
+    
+    // splice()、sort()、reverse()
+    var num = [98,99,100,101]
+    num.splice(2,0,89); // 2 表示插入位置索引，0表示不删除元素，
+    console.log(num);
+    num.reverse();
+    console.log(num);
+    // sort()
+    var str = ["hello","client","zero"];
+    str.sort();
+    console.log(str);
+    var nums = [1,200,51,66,88];
+    nums.sort();
+    console.log(nums);
+    
+    function compare(num1,num2){
+        return num1 - num2;
+    }
+    var nums = [3,1,2,100,4,200];
+    nums.sort(compare);
+    console.log(nums);
+    
+    // 迭代器方法
+    
+    // 不返回新数组的 forEach()、every()、some()、reduce()
+    // 用forEach平方
+    function square(num){
+        console.log(num,num*num);
+    }
+    var num = [1,2,3,4,5];
+    num.forEach(square);
+    console.log(num);
+    // every() 返回值为布尔类型，对于应用的所有元素，该函数返回true，则该方法返回true
+    function isEven(num){
+        return num%2 == 0;
+    }
+    var num = [2,4,6,8,10];
+    var even = num.every(isEven);
+    if(even){
+        console.log("所有的数字都是偶数");
+    }else{
+        console.log("不是所有的数字都是偶数");
+    }
+    // some() 与 every() 的不同是只要有一个元素使该函数返回true，那么该方法就返回true
+    var num = [1,2,3,4,5,6,7,8];
+    var someEven = num.some(isEven);
+    if(someEven){
+        console.log("有些数字是偶数");
+    }else{
+        console.log("没有数字是偶数");
+    }
+    // reduce() 有两个功能，一是可以对数组元素进行求和，二是将数组元素连接成字符串
+    function add(num1,num2){
+        return num1 + num2;
+    }
+    var num = [1,2,3,4];
+    var sum = num.reduce(add);
+    console.log(sum);
+    
+    function concat(str,i){
+        return str + i;
+    }
+    var words = ["I am ","a ","coder. "];
+    var re = words.reduce(concat);
+    console.log(re);
+    
+    // 返回新数组的 map()、filter()
+    // map的作用与forEach一样，区别是map函数返回的是一个新数组
+    function addFive(grade){
+        return grade += 5;
+    }
+    var grade = [77,82,88,95,90];
+    var result = grade.map(addFive);
+    console.log(result);
+    // filter和every相似，区别在于当所有的元素使该函数为true时，它并不返回布尔类型，而是返回一个新数组。eg：随机产生10个0到100的数字，返回大于60的数。
+    function passing(num){
+        return num >= 60;
+    }
+    var grades = [];
+    for(var i = 0; i < 11; i++){
+        grades[i] = Math.floor(Math.random()*101);
+    }
+    var pass = grades.filter(passing);
+    console.log("随机产生的10个数为"+grades);
+    console.log("大于60的有"+pass);
+    
+    // 二维数组
+    var grades = [[88,86,82],[91,82,83],[77,72,79]];
+    console.log(grades[1][2]);
+    
+    // 处理二维数组
+    // 按列访问
+    var grades = [[88,86,82],[91,82,83],[77,72,79]];
+    var total = 0;
+    var average = 0.0;
+    for(var row = 0; row < grades.length; row++){
+        for(var col = 0; col < grades[row].length; col++){
+            total += grades[row][col];
+        }
+        average = total/grades[row].length;
+        console.log("student "+parseInt(row+1)+" average:"+average.toFixed(2));
+        total = 0;
+        average = 0.0;
+    }
+    // 按行访问
+    var grades = [[88,86,82],[91,82,83],[77,72,79]];
+    var total = 0;
+    var average = 0.0;
+    for(var col = 0; col < grades.length; col++){
+        for(var row = 0; row < grades[col].length; row++){
+            total += grades[row][col];
+        }
+        average = total/grades[col].length;
+        console.log("exam "+parseInt(col+1)+" average:"+average.toFixed(2));
+        total = 0;
+        average = 0.0;
+    }
+    
+    // 对象数组
+    function Point(x,y){
+        this.x = x;
+        this.y = y;
+    }
+    function show(arr){
+        for(var i = 0; i < arr.length; i++){
+            console.log(arr[i].x+","+arr[i].y);
+        }
+    }
+    var p1 = new Point(1,2);
+    var p2 = new Point(2,4);
+    var p3 = new Point(8,1);
+    var p4 = new Point(2,9);
+    var point = [p1,p2,p3,p4];
+    for(var i = 0; i < point.length; i++){
+        console.log("Point "+parseInt(i+1)+": "+point[i].x+", "+point[i].y);
+    }
+    
+    // 之前的push()等操作也可以
+    var p5 = new Point(11,13);
+    point.push(p5);
+    show(point);
+    point.shift();
+    show(point);
+</script>    
+</body>    
+</html>
